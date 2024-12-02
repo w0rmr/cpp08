@@ -2,7 +2,8 @@
 #include <iostream>
 Span::Span( unsigned int n):N(n){}
 
-Span::~Span(){}
+Span::~Span(){
+}
 
 void Span::addNumber(int n){
     if(integers.size() >= N)
@@ -25,10 +26,13 @@ unsigned int Span::shortestSpan(void){
         throw std::out_of_range("bad trip");
     std::vector<int> tmp = integers;
     std::sort(tmp.begin(),tmp.end());
-    int  shortest_span = *(tmp.begin() + 1) - *tmp.begin();
+    unsigned int  shortest_span = *(tmp.begin() + 1) - *tmp.begin();
     for(std::vector<int>::iterator it = tmp.begin(); it != tmp.end();it++)
-            if(it + 1 != tmp.end() &&  *(it + 1) - *it < shortest_span)
-                shortest_span = (*(it + 1) - *it);
+    {
+            unsigned int cur_span = (*(it + 1) - *it);
+            if(it + 1 != tmp.end() &&  cur_span < shortest_span && cur_span != 0)
+                shortest_span = cur_span;
+    }
     return shortest_span;
 }
 

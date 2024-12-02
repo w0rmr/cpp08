@@ -1,4 +1,4 @@
-Target = easyfind
+Target = MutantStack
 
 CC = c++
 
