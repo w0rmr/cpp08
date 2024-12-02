@@ -1,61 +1,25 @@
-#pragma once 
+#pragma once
+#include <stack>
+#include <deque>
+#include <iterator>
 #include <iostream>
-#include <string>
-#include <vector>
 
-template <typename T>
-class MutantStack{
-    private:
-        std::vector<T> stack;
-    public:
-        bool empty(); // Returns whether the stack is empty
-        size_t size(); // Returns the size of the stack
-        T& top();
-        void push(T g); // Adds the element 'g' at the top of the stack
-        void pop(); // Deletes the most recent entered element of the stack
-        typename std::vector<T>::iterator begin(void);
-        typename std::vector<T>::iterator end(void);
-        typedef typename std::vector<T>::iterator iterator;
-        MutantStack();
-        ~MutantStack();
+template <typename T, typename Container = std::deque<T> >
+class MutantStack : public std::stack<T, Container> {
+public:
+    typedef typename Container::iterator iterator;
+    typedef typename Container::const_iterator const_iterator;
+
+    MutantStack() : std::stack<T, Container>() {}
+    MutantStack(const MutantStack<T, Container>& other) : std::stack<T, Container>(other) {}
+    MutantStack<T, Container>& operator=(const MutantStack<T, Container>& other) {
+        std::stack<T, Container>::operator=(other);
+        return *this;
+    }
+    ~MutantStack() {}
+    T& top(void){return std::stack<T, Container>::top();}
+    iterator begin() { return this->c.begin(); }
+    iterator end() { return this->c.end(); }
+    const_iterator begin() const { return this->c.begin(); }
+    const_iterator end() const { return this->c.end(); }
 };
-template <typename T>
-MutantStack<T>::MutantStack(){}
-
-template <typename T>
-typename std::vector<T>::iterator MutantStack<T>::begin(void){
-    return stack.begin();
-}
-
-template <typename T>
-typename std::vector<T>::iterator MutantStack<T>::end(void){
-    return stack.end();
-}
-
-template <typename T>
-MutantStack<T>::~MutantStack(){}
-
-template<typename T>
-bool MutantStack<T>::empty(){
-    return stack.empty();
-}
-
-template<typename T>
-size_t MutantStack<T>::size() {
-    return stack.size();
-}
-
-template<typename T>
- T& MutantStack<T>::top() {
-    return stack.back();
-}
-
-template<typename T>
-void MutantStack<T>::push(T g){
-    stack.push_back(g);
-}
-
-template<typename T>
-void MutantStack<T>::pop(){
-    stack.pop_back();
-}
