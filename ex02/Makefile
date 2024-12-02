@@ -1,10 +1,10 @@
-Target = Span
+Target = easyfind
 
 CC = c++
 
 FLAGS = -Wall -Wextra -Werror -std=c++98 #-fsanitize=address
 
-FILES = main.cpp Span.cpp
+FILES = main.cpp
 
 objects = $(FILES:.cpp=.o)
 
